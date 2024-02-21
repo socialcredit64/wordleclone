@@ -11,9 +11,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	private BufferedImage back; 
 	private int key;
+	private char typedLetter;
 	private Word[][] board;
 	private Word[] answer;
 	private int SIZE;
+	private int column;
+	private int row;
 
 
 
@@ -25,11 +28,24 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		this.addMouseMotionListener(this);
 		key =-1; 
 		SIZE = 100;
-		answer = (new Word('',40,40,40), 
-							('',40,40,40),
-							('',40,40,40),
-							('',40,40,40),
-							('',40,40,40));
+		row = 0;
+		column = 0;
+
+		answer = new Word[5];
+
+		answer[0] = new Word(' ',40,40,40);
+		answer[1] = new Word(' ',40,40,40);
+		answer[2] = new Word(' ',40,40,40);
+		answer[3] = new Word(' ',40,40,40);
+		answer[4] = new Word(' ',40,40,40);
+
+		board = new Word[5][6];
+
+		for(int j = 0; j<5; ++j){
+			for(int i = 0; i<6; ++i){
+				board[j][i] = new Word(' ',40,40,40);
+			}
+		}
 
 	}
 
@@ -69,11 +85,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		
 		//set board
 
-		/*for(int j = 0; j<5; ++j){
-			for(int i = 0; i<6; ++i){
-				board[j][i] = new Word('p',40,40,40);
-			}
-		}*/
+
 		
 		
 		
@@ -83,12 +95,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		
 		
 		
-		//draw
+		//draw 
 		for (int j = 0; j<5; ++j){
 			for(int i = 0; i<6; ++i){
 				//g2d.setColor(board[j][i].getColor());
 				g2d.setColor(Color.GRAY);
 				g2d.fillRect(j*(SIZE+10)+10, i*(SIZE+10)+10, SIZE, SIZE);
+				g2d.setColor(Color.white);
+				g2d.drawString(""+board[j][i].getLetter(),j*(SIZE+10)+50, i*(SIZE+10)+50);
 			}
 		}
 		
@@ -117,10 +131,25 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-		key= e.getKeyCode();
-		System.out.println(key);
+		key = e.getKeyCode();
+		typedLetter = e.getKeyChar();
+		System.out.println(typedLetter);
 		
-		
+		if(typedLetter!='?' || typedLetter!=' '){
+			if(row<6){
+				if(column<5){
+				board[row][column].setLetter(typedLetter);
+				++column;
+			}
+			else{
+				++row;
+			}
+			
+		}
+			
+			
+		}
+		 
 		
 	
 	}
@@ -148,8 +177,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		x=arg0.getX();
-		y=arg0.getY();
 	}
 
 
@@ -188,8 +215,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		// TODO Auto-generated method stub
 		
 		System.out.println("you clicked at"+arg0.getX()+", "+arg0.getY());
-		x=arg0.getX();
-		y=arg0.getY();
+
 		
 		
 	}

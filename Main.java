@@ -7,7 +7,7 @@ public class Main extends JFrame{
 	private static final int HEIGHT=1600;
 	
 	public Main () {
-		super("tictacto Demo");
+		super("wordle 2");
 		setSize(WIDTH, HEIGHT);
 		Game play = new Game();
 		((Component) play).setFocusable(true);
