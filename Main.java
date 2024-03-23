@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main extends JFrame{
-	private static final int WIDTH =1800;
-	private static final int HEIGHT=1600;
+	private static final int WIDTH =800;
+	private static final int HEIGHT=1000;
 	
 	public Main () {
 		super("wordle 2");
